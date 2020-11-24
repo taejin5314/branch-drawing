@@ -11,22 +11,35 @@ function drawTree(startX, startY, len, angle, branchWidth, color1, color2) {
     ctx.save();
     ctx.strokeStyle = color1;
     ctx.fillStyle = color2;
+    ctx.shadowBlur = 15;
+    ctx.shadowColor = 'rgba(255, 255, 255, 0.3)';
     ctx.lineWidth = branchWidth;
     ctx.translate(startX, startY);
     ctx.rotate(angle * Math.PI / 180);
     ctx.moveTo(0, 0);
-    ctx.lineTo(0, -len);
+    // ctx.lineTo(0, -len);
+    if (angle > 0) {
+        ctx.bezierCurveTo(10, -len / 2, 10, -len / 2, 0, -len)
+    } else {
+        ctx.bezierCurveTo(10, -len / 2, -10, -len / 2, 0, -len)
+    }
     ctx.stroke();
 
-    if (len < 10) {
+    if (len < 8) {
+        // leaf
+        ctx.beginPath();
+        ctx.arc(0, -len, 20, 0, Math.PI / 2);
+        ctx.fill();
         ctx.restore();
         return;
     }
 
-    drawTree(0, -len, len * 0.75, angle + 5, branchWidth);
-    drawTree(0, -len, len * 0.75, angle - 5, branchWidth);
+    const curve = (Math.random() * 10) + 10;
+
+    drawTree(0, -len, len * 0.75, angle + curve, branchWidth * 0.7);
+    drawTree(0, -len, len * 0.75, angle - curve, branchWidth * 0.7);
 
     ctx.restore();
 }
 
-drawTree(canvas.width / 2, canvas.height - 80, 120, 0, 2, 'brown', 'green')
+drawTree(canvas.width / 2, canvas.height - 80, 120, 0, 25, 'brown', 'pink')
