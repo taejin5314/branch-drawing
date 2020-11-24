@@ -1,4 +1,4 @@
-const canvas = document.querySelector('.canvas');
+const canvas = document.querySelector('canvas');
 const generateButton = document.querySelector('.generate-tree-button');
 
 canvas.width = window.innerWidth;
@@ -17,4 +17,16 @@ function drawTree(startX, startY, len, angle, brandWidth, color1, color2) {
     ctx.moveTo(0, 0);
     ctx.lineTo(0, -len);
     ctx.stroke();
+
+    if (len < 10) {
+        ctx.restore();
+        return;
+    }
+
+    drawTree(0, 0, -len * 0.75, angle + 5, branchWidth);
+    drawTree(0, 0, -len * 0.75, angle - 5, branchWidth);
+
+    ctx.restore();
 }
+
+drawTree(canavs.width / 2, canvas.height - 80, 120, 0, 2, 'brown', 'green')
