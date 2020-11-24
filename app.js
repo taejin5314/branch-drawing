@@ -43,3 +43,20 @@ function drawTree(startX, startY, len, angle, branchWidth, color1, color2) {
 }
 
 drawTree(canvas.width / 2, canvas.height - 80, 120, 0, 25, 'brown', 'pink')
+
+function generateRandomTree() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    let centerPointX = canvas.width / 2;
+    let len = Math.floor((Math.random() * 20) + 100);
+    let angle = 0;
+    let branchWidth = (Math.random() * 70) + 1;
+    let color1 = 'rgb(' + Math.random() * 255 + ',' + Math.random() * 255 + ',' + Math.random() * 255 + ')';
+    let color2 = 'rgb(' + Math.random() * 255 + ',' + Math.random() * 255 + ',' + Math.random() * 255 + ',' + Math.random() + ')';
+
+    generateButton.style.background = color1;
+
+    drawTree(centerPointX, canvas.height - 80, len, angle, branchWidth, color1, color2);
+}
+
+generateButton.addEventListener('click', generateRandomTree);
